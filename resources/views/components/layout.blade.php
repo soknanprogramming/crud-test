@@ -15,10 +15,14 @@
             <nav>
                 <ul class="flex space-x-5">
                     <li class="hover:text-blue-600"><a href="/">Home</a></li>
-                    <li class="hover:text-blue-600"><a href="/about">Create</a></li>
+                    <li class="hover:text-blue-600"><a href="/students/create">Create</a></li>
                     <li class="hover:text-blue-600"><a href="/contact">Contact</a></li>
                 </ul>
             </nav>
+            <form action="/" class="ml-20 flex items-center">
+                <input type="text" placeholder="Search" name="search" class="bg-gray-50 p-1.5 w-60 rounded-sm">
+                <button class="ml-1.5 bg-gray-500 hover:bg-gray-600 hover:text-gray-50 px-2 py-1 rounded-sm">Search</button>
+            </form>
         </header>
         <main>{{ $slot }}</main>
     </div>

@@ -10,10 +10,22 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $students = Student::all();
-        // dd($students);
+        // dd($request->input('search'));
+        $search = $request->input('search', '');
+        // $students = Student::all();
+        $students = Student::where('first_name', 'ilike', "%" . $search . "%")
+            ->orWhere('last_name', 'ilike', "%" . $search . "%")
+            ->orWhere('email', 'ilike', "%" . $search . "%")
+            ->orWhere('phone', 'ilike', "%" . $search . "%")
+            ->orWhere('address', 'ilike', "%" . $search . "%")
+            ->orWhere('gender', 'ilike', "%" . $search . "%")
+            ->orWhere('dob', 'ilike', "%" . $search . "%")
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+
 
         return view('student.index', [
             'students' => $students
@@ -25,7 +37,7 @@ class StudentController extends Controller
      */
     public function create()
     {
-        //
+        return view('student.create');
     }
 
     /**
@@ -33,8 +45,22 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $validated = $request->validate([
+            'first_name' => 'required|string|min:1|max:25',
+            'last_name' => 'required|string|min:1|max:25',
+            'gender' => 'required|string|in:male,female,other',
+            'dob' => 'required|date',
+            'email' => 'required|email|unique:students,email',
+            'phone' => 'required|string|min:9|max:15',
+            'address' => 'required|string'
+        ]);
+
+       Student::create($validated);
+
+       return redirect('/');
     }
+
 
     /**
      * Display the specified resource.

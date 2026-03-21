@@ -2,7 +2,7 @@
     @if ($students)
         <div class="grid 2xl:grid-cols-4">
             @foreach ($students as $student)
-                <x-student-card :student="$student" />
+                <x-student-card :student="$student" class="w-92"/>
             @endforeach
         </div>
     @else
