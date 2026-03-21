@@ -1,0 +1,20 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: laravel_pg
+    restart: no
+    environment:
+      POSTGRES_DB: crud_test
+      POSTGRES_USER: crud_user
+      POSTGRES_PASSWORD: soknan123
+    ports:
+      - "5432:5432"
+    volumes:
+      - laravel_pgdata:/var/lib/postgresql/data
+
+volumes:
+  laravel_pgdata:
+
+
