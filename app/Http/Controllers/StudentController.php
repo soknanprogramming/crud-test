@@ -58,20 +58,8 @@ class StudentController extends Controller
 
         // $students = Student::all();
         $students = Student::query()
-            ->when($gender != 'all', function ($q) use ($gender) {
-                return $q->where('gender', $gender);
-            })
-            ->when($search, function ($q) use ($search) {
-                $q->where(function ($query) use ($search) {
-                    $query->orWhere('first_name', 'ilike', "%$search%")
-                        ->orWhere('last_name', 'ilike', "%$search%")
-                        ->orWhere('email', 'ilike', "%$search%")
-                        ->orWhere('phone', 'ilike', "%$search%")
-                        ->orWhere('address', 'ilike', "%$search%")
-                        ->orWhere('gender', 'ilike', "%$search%")
-                        ->orWhere('dob', 'ilike', "%$search%");
-                });
-            })
+            ->gender($gender)
+            ->search($search)
             ->orderBy($order_by_column, $order_by_direction)
             ->paginate(8)
             ->withQueryString();
@@ -176,6 +164,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if($student->image && Storage::disk('public')->exists($student->image)){
+            Storage::disk('public')->delete($student->image);
+        }
+
         $student->delete();
         return redirect('/')->with('message', 'Student deleted successfully!');
     }
