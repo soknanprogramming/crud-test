@@ -169,6 +169,6 @@ class StudentController extends Controller
         }
 
         $student->delete();
-        return redirect('/')->with('message', 'Student deleted successfully!');
+        return redirect('/')->with('message', 'Student ' . $student->first_name . ' ' . $student->last_name . ' deleted successfully!');
     }
 }
