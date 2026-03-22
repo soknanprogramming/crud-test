@@ -8,4 +8,8 @@
     @else
         <p>No students found</p>
     @endif
+
+    <div class="mx-10">
+        {{ $students->links() }}
+    </div>
 </x-layout>

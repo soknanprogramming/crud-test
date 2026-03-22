@@ -72,7 +72,8 @@ class StudentController extends Controller
                 });
             })
             ->orderBy($order_by_column, $order_by_direction)
-            ->get();
+            ->paginate(8)
+            ->withQueryString();
 
 
 
