@@ -56,9 +56,9 @@ class StudentController extends Controller
             'address' => 'required|string'
         ]);
 
-       Student::create($validated);
+        Student::create($validated);
 
-       return redirect('/');
+        return redirect('/');
     }
 
 
@@ -76,9 +76,12 @@ class StudentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Student $student)
     {
-        //
+        // dd($student->first_name);
+        return view('student.edit', [
+            'student' => $student
+        ]);
     }
 
     /**
@@ -92,8 +95,9 @@ class StudentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Student $student)
     {
-        //
+        $student->delete();
+        return redirect('/')->with('success', 'Student deleted successfully!');
     }
 }

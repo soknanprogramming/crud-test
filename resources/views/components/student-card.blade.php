@@ -18,8 +18,26 @@
             <p class="text-slate-500 flex items-center"><span class="font-medium text-slate-700 w-20">Address:</span>
                 {{ Str::limit($student->address, 25) }}</p>
         </div>
-        <div class="mt-5">
-            <a href="/students/{{ $student->id }}" class="bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:cursor-pointer p-1.5 rounded-sm">View Details</a>
+        <div class="mt-5 space-x-1">
+            <a href="/students/{{ $student->id }}"
+                class="bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:cursor-pointer p-1.5 rounded-sm">
+                View Details
+            </a>
+            <a href="/students/{{ $student->id }}/edit"
+                class="bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:cursor-pointer p-1.5 rounded-sm">
+                Update
+            </a>
+            <!-- Delete button -->
+            <form action="/students/{{ $student->id }}" method="POST" class="inline-block"
+                onsubmit="return confirm('Are you sure you want to delete {{ $student->first_name }} {{ $student->last_name }}?');">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    class="bg-gray-100 border border-gray-300 hover:bg-gray-200 hover:cursor-pointer p-1.5 rounded-sm">
+                    Delete
+                </button>
+            </form>
+
         </div>
     </div>
 </div>

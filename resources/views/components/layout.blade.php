@@ -14,8 +14,8 @@
         <header class="flex bg-gray-200 border-b border-gray-300 sticky top-0 z-10 h-12 items-center px-3">
             <nav>
                 <ul class="flex space-x-5">
-                    <li class="hover:text-blue-600"><a href="/">Home</a></li>
-                    <li class="hover:text-blue-600"><a href="/students/create">Create</a></li>
+                    <li class="{{ request()->is('/') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a href="/">Home</a></li>
+                    <li class="{{ request()->is('students/create') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a href="/students/create">Create</a></li>
                     <li class="hover:text-blue-600"><a href="/contact">Contact</a></li>
                 </ul>
             </nav>
