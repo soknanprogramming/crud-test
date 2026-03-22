@@ -9,7 +9,7 @@
         <p>No students found</p>
     @endif
 
-    <div class="mx-10">
+    <div class="mx-10 mb-5">
         {{ $students->links() }}
     </div>
 </x-layout>

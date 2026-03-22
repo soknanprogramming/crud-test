@@ -108,7 +108,7 @@ class StudentController extends Controller
 
         Student::create($validated);
 
-        return redirect('/');
+        return redirect('/')->with('message', 'Student created successfully!');
     }
 
 
@@ -152,7 +152,7 @@ class StudentController extends Controller
         $student->update($validated);
         $student->save();
 
-        return redirect('/')->with('success', 'Student updated successfully!');
+        return redirect('/')->with('message', 'Student updated successfully!');
     }
 
     /**
@@ -161,6 +161,6 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         $student->delete();
-        return redirect('/')->with('success', 'Student deleted successfully!');
+        return redirect('/')->with('message', 'Student deleted successfully!');
     }
 }

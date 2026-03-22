@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="icon" href="{{ asset('logo.png') }}" type="image/x-icon">
     <title>CRUD Application</title>
+    <script src="//unpkg.com/alpinejs" defer></script>
     @vite('resources/css/app.css')
 </head>
 
@@ -57,6 +58,7 @@
         </header>
         <main>{{ $slot }}</main>
     </div>
+    <x-flash-message/>
 </body>
 
 </html>
