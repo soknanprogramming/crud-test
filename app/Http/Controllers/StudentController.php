@@ -96,7 +96,8 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $validated = $request->validate([
+        $path = $request->file('image')->store('students', 'public');
+        $formFields = $request->validate([
             'first_name' => 'required|string|min:1|max:25',
             'last_name' => 'required|string|min:1|max:25',
             'gender' => 'required|string|in:male,female,other',
@@ -106,7 +107,9 @@ class StudentController extends Controller
             'address' => 'required|string'
         ]);
 
-        Student::create($validated);
+        $formFields['image']= $path;
+
+        Student::create($formFields);
 
         return redirect('/')->with('message', 'Student created successfully!');
     }

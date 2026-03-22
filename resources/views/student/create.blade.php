@@ -1,7 +1,7 @@
 <x-layout>
     <div class="max-w-2xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg border border-gray-200">
         <h1 class="text-2xl font-bold text-gray-800 mb-6">Create New Student</h1>
-        <form action="/students" method="POST" class="space-y-4">
+        <form action="/students" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -18,6 +18,13 @@
                         <p class="text-red-500">{{ $message }}</p>
                     @enderror
                 </div>
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700" for="class" class="block text-sm font-medium text-gray-700">Image</label>
+                <input class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500" type="file" name="image" id="image"/>
+                @error('image')
+                    <p class="text-red-500">{{ $message }}</p>
+                @enderror
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
