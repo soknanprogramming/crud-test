@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OtherController;
 use App\Http\Controllers\StudentController;
 use App\Models\Student;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,13 @@ Route::get('/students/create', [StudentController::class, 'create']);
 Route::get('/students/{student}', [StudentController::class, 'show']);
 // edit
 Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
+// update
+Route::put('/students/{student}', [StudentController::class, 'update']);
 // store
 Route::post('/students', [StudentController::class, 'store']);
 // destroy
 Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+
+
+// index : other
+Route::get('/other', [OtherController::class, 'index']);
