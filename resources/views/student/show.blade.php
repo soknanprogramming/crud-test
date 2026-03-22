@@ -10,6 +10,13 @@
                 <span class="text-sm text-gray-500 block">Full Name</span>
                 <p class="text-lg font-semibold">{{ $student->first_name }} {{ $student->last_name }}</p>
             </div>
+            {{-- @dd($student->image) --}}
+            @if ($student->image)
+                <div class="border-b pb-2">
+                    <span class="text-sm text-gray-500 block">Image</span>
+                    <img class="py-2" src="{{ asset('storage/' . $student->image) }}" alt="">
+                </div>
+            @endif
             <div class="border-b pb-2">
                 <span class="text-sm text-gray-500 block">Email</span>
                 <p class="text-lg">{{ $student->email }}</p>

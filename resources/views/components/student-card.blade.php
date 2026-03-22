@@ -10,7 +10,7 @@
         <div class="p-3">
             <div class="flex items-center">
                 <div>
-                    <img class="size-25" src="{{ asset('images/no-image.png') }}" alt="">
+                    <img class="size-25 object-cover rounded-full" src="{{ $student->image ? asset('storage/' . $student->image) : asset('images/no-image.png')}}" alt="">
                 </div>
                 <div class="ml-2.5">
                     <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-1">Student Profile</div>

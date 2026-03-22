@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
 {
@@ -95,11 +96,10 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        $path = $request->file('image')->store('students', 'public');
         $formFields = $request->validate([
             'first_name' => 'required|string|min:1|max:25',
             'last_name' => 'required|string|min:1|max:25',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'gender' => 'required|string|in:male,female,other',
             'dob' => 'required|date',
             'email' => 'required|email',
@@ -107,7 +107,9 @@ class StudentController extends Controller
             'address' => 'required|string'
         ]);
 
-        $formFields['image']= $path;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $formFields['image'] = $request->file('image')->store('students', 'public');
+        }
 
         Student::create($formFields);
 
@@ -142,9 +144,10 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
-        $validated = $request->validate([
+        $fromFields = $request->validate([
             'first_name' => 'required|string|min:1|max:25',
             'last_name' => 'required|string|min:1|max:25',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'gender' => 'required|string|in:male,female,other',
             'dob' => 'required|date',
             'email' => 'required|email',
@@ -152,8 +155,18 @@ class StudentController extends Controller
             'address' => 'required|string'
         ]);
 
-        $student->update($validated);
-        $student->save();
+        if($request->hasFile('image') && $request->file('image')->isValid()){
+            if($student->image && Storage::disk('public')->exists($student->image)){
+                Storage::disk('public')->delete($student->image);
+            }
+            $formFields['image'] = $request->file('image')->store('students', 'public');
+        } else {
+            $formFields['image'] = $student->image;
+        }
+
+        // dd($formFields);
+
+        $student->update($formFields);
 
         return redirect('/')->with('message', 'Student updated successfully!');
     }
