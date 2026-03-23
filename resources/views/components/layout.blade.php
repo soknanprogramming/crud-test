@@ -13,18 +13,18 @@
 
 <body>
     <div>
-        <header class="flex bg-gray-200 border-b border-gray-300 sticky top-0 z-10 h-12 items-center px-3">
+        <header class="flex 2xl:px-10 justify-between bg-gray-200 border-b border-gray-300 sticky top-0 z-10 h-12 items-center px-3">
             <nav>
                 <ul class="flex space-x-5">
                     <li class="{{ request()->is('/') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a
                             href="/">Home</a></li>
                     <li class="{{ request()->is('students/create') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a
                             href="/students/create">Create</a></li>
-                    <li class="{{ request()->is('other') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a
-                            href="/other">Other</a></li>
+                    {{-- <li class="{{ request()->is('other') ? 'text-blue-600' : 'hover:text-blue-600' }}"><a
+                            href="/other">Other</a></li> --}}
                 </ul>
             </nav>
-            <form action="/" class="ml-20 flex items-center">
+            <form action="/" class="flex 2xl:-ml-130 items-center">
                 <input type="text" placeholder="Search" name="search" class="bg-gray-50 p-1.5 w-60 rounded-sm">
                 <select name="order_by" id="order_by"
                     class="ml-1.5 bg-gray-300 hover:bg-gray-400 hover:text-gray-50 px-2 py-1 rounded-sm">
@@ -55,10 +55,20 @@
                 <button
                     class="ml-1.5 bg-gray-500 hover:bg-gray-600 hover:text-gray-50 px-2 py-1 rounded-sm">Search</button>
             </form>
+            <nav>
+                <ul class="flex space-x-5">
+                    <li class="{{ request()->is('register') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                        <a href="/register">Register</a>
+                    </li>
+                    <li class="{{ request()->is('login') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                        <a href="/login">Login</a>
+                    </li>
+                </ul>
+            </nav>
         </header>
         <main>{{ $slot }}</main>
     </div>
-    <x-flash-message/>
+    <x-flash-message />
 </body>
 
 </html>

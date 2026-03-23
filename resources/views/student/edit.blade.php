@@ -1,6 +1,6 @@
 <x-layout>
     <div class="max-w-2xl mx-auto my-10 bg-white p-8 rounded-lg shadow-lg border border-gray-200">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">Create New Student</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Edit student name {{ $student->first_name }} {{ $student->last_name }}</h1>
         <form action="/students/{{ $student->id }}" method="POST" class="space-y-4" enctype="multipart/form-data">
             @csrf
             @method('PUT')
