@@ -57,12 +57,24 @@
             </form>
             <nav>
                 <ul class="flex space-x-5">
-                    <li class="{{ request()->is('register') ? 'text-blue-600' : 'hover:text-blue-600' }}">
-                        <a href="/register">Register</a>
-                    </li>
-                    <li class="{{ request()->is('login') ? 'text-blue-600' : 'hover:text-blue-600' }}">
-                        <a href="/login">Login</a>
-                    </li>
+                    @auth
+                        <li class="text-gray-700">
+                            Welcome, <span class="font-semibold">{{ auth()->user()->name }}</span>
+                        </li>
+                        <li>
+                            <form action="/logout" method="POST" class="inline">
+                                @csrf
+                                <button type="submit" class="hover:text-blue-600">Logout</button>
+                            </form>
+                        </li>
+                    @else
+                        <li class="{{ request()->is('register') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                            <a href="/register">Register</a>
+                        </li>
+                        <li class="{{ request()->is('login') ? 'text-blue-600' : 'hover:text-blue-600' }}">
+                            <a href="/login">Login</a>
+                        </li>
+                    @endauth
                 </ul>
             </nav>
         </header>

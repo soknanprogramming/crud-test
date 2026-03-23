@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Student extends Model
 {
     protected $fillable = [
+        'user_id',
         'first_name',
         'last_name',
         'image',
@@ -44,6 +45,11 @@ class Student extends Model
                     ->orWhere('dob', 'ilike', "%$search%");
             });
         });
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     use HasFactory;
