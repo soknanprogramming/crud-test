@@ -8,19 +8,19 @@ use Illuminate\Support\Facades\Route;
 
 // Students Route
 // index
-Route::get('/', [StudentController::class, 'index']);
+Route::get('/', [StudentController::class, 'index'])->middleware('check.auth');
 // create
-Route::get('/students/create', [StudentController::class, 'create']);
+Route::get('/students/create', [StudentController::class, 'create'])->middleware('check.auth');
 // show
-Route::get('/students/{student}', [StudentController::class, 'show']);
+Route::get('/students/{student}', [StudentController::class, 'show'])->middleware('check.auth');
 // edit
-Route::get('/students/{student}/edit', [StudentController::class, 'edit']);
+Route::get('/students/{student}/edit', [StudentController::class, 'edit'])->middleware('check.auth');
 // update
-Route::put('/students/{student}', [StudentController::class, 'update']);
+Route::put('/students/{student}', [StudentController::class, 'update'])->middleware('check.auth');
 // store
-Route::post('/students', [StudentController::class, 'store']);
+Route::post('/students', [StudentController::class, 'store'])->middleware('check.auth');
 // destroy
-Route::delete('/students/{student}', [StudentController::class, 'destroy']);
+Route::delete('/students/{student}', [StudentController::class, 'destroy'])->middleware('check.auth');
 
 
 // Other Route

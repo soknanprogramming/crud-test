@@ -1,6 +1,6 @@
 ## CRUD App
 
-![image1](markup/image1.png)
+![image2](markup/image2.png)
 
 
 # Laravel

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Policies\StudentPolicy;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class StudentController extends Controller
@@ -56,8 +59,8 @@ class StudentController extends Controller
         }
 
 
-        // $students = Student::all();
-        $students = Student::query()
+        $students = $request->user()->students()
+            ->getQuery()
             ->gender($gender)
             ->search($search)
             ->orderBy($order_by_column, $order_by_direction)
@@ -95,6 +98,8 @@ class StudentController extends Controller
             'address' => 'required|string'
         ]);
 
+        $formFields['user_id'] = Auth::id();
+
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $formFields['image'] = $request->file('image')->store('students', 'public');
         }
@@ -110,7 +115,8 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        Gate::authorize('view', $student);
+
         return view('student.show', [
             'student' => $student
         ]);
@@ -121,7 +127,8 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
-        // dd($student->first_name);
+        Gate::authorize('view', $student);
+
         return view('student.edit', [
             'student' => $student
         ]);
@@ -132,6 +139,8 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        Gate::authorize('update', $student);
+
         $fromFields = $request->validate([
             'first_name' => 'required|string|min:1|max:25',
             'last_name' => 'required|string|min:1|max:25',
@@ -164,6 +173,8 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        Gate::authorize('delete', $student);
+
         if($student->image && Storage::disk('public')->exists($student->image)){
             Storage::disk('public')->delete($student->image);
         }

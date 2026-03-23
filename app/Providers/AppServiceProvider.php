@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Student;
+use App\Policies\StudentPolicy;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -27,5 +30,7 @@ class AppServiceProvider extends ServiceProvider
                 ->numbers()
                 ->symbols();
         });
+
+        Gate::policy(Student::class, StudentPolicy::class);
     }
 }
